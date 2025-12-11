@@ -2,9 +2,10 @@ import { Search, Zap } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Navbar = ({handleSearch}) => {
+const Navbar = ({ handleSearch }) => {
   const [input, setInput] = useState("");
   const navigate = useNavigate();
+
   const searchHandler = (e) => {
     e.preventDefault();
     if (input.trim()) {
@@ -15,44 +16,59 @@ const Navbar = ({handleSearch}) => {
   };
 
   return (
-    <>
-      <nav className="sticky to0-0 z-10 bg-gray-950/90 backdrop-blur-md shadow-2xl shadow-black/50 border-b border-blue-900/50">
-        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex  justify-between items-center h-16">
-            <Link
-              to={"/"}
-              className="flex items-center text-2xl font-black text-white hover:text-blue-400
-           transition duration-300 tracking-widest"
-            >
-              <Zap className="w-7 h-7 mr-2 text-yellow-400 fill-yellow-400/20" />
-              <span className="text-blue-400">Pro</span>Chef
-            </Link>
-            <form
-              onSubmit={searchHandler}
-              className="flex-1 max-w-lg mx-4 hidden sm:flex"
+    <nav className="sticky top-0 z-20 bg-gray-950/80 backdrop-blur-lg border-b border-gray-800 shadow-lg">
+      <div className="max-w-6xl mx-auto px-4 py-3">
+        <div className="flex items-center justify-between">
+          {/* logo */}
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-xl font-extrabold tracking-wide text-white hover:text-blue-400 transition"
+          >
+            <Zap className="w-6 h-6 text-yellow-400" />
+            <span className="text-blue-400">Pro</span>Chef
+          </Link>
+
+          {/* Desktop Search */}
+          <form
+            onSubmit={searchHandler}
+            className="hidden sm:flex items-center w-full max-w-md ml-4"
+          >
+            <input
+              type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              placeholder="Search dishes, ingredients, cuisines..."
+              className="w-full px-4 py-2 rounded-l-full bg-gray-900 text-gray-100 border border-gray-700
+                focus:ring-2 focus:ring-blue-600 outline-none placeholder-gray-400"
+            />
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-r-full transition flex items-center justify-center"
             >
-              <input
-                type="text"
-                placeholder="Search Dishes , ingredients or cuisines.."
-                className="w-full px-5 py-2 border border-gray-700 bg-gray-900 text-gray-50
-                rounded-l-full focus:outline-none focus:ring-4 focus:ring-blue-600/50 transition placeholder-gray-500
-                shadow-inner shadow-black/50"
-              />
-              <button
-                type="submit"
-                className="bg-linear-to-r from-blue-600 to-cyan-500 text-white p-2.5 rounded-r-full
-                hover:from-blue-700 hover:to-cyan-600 transition duration-300 shadow-lg shadow-blue-800/50
-                hower:shadow-xl hower:shadow-blue-800/90"
-              >
-                <Search className="w-5 h-5" />
-              </button>
-            </form>
-          </div>
+              <Search className="w-5 h-5" />
+            </button>
+          </form>
         </div>
-      </nav>
-    </>
+
+        {/* Mobile Search */}
+        <form onSubmit={searchHandler} className="sm:hidden mt-3 flex">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Search recipes..."
+            className="flex-1 px-4 py-2 rounded-l-full bg-gray-900 text-gray-100 border border-gray-700
+              focus:ring-2 focus:ring-blue-600 outline-none placeholder-gray-400"
+          />
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-r-full transition flex items-center justify-center"
+          >
+            <Search className="w-5 h-5" />
+          </button>
+        </form>
+      </div>
+    </nav>
   );
 };
 

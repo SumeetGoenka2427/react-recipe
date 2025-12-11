@@ -12,43 +12,63 @@ const RecipeSlider = ({ title, fetchUrl }) => {
     dots: false,
     infinite: true,
     speed: 600,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
-    cssEase: "linear",
+    autoplaySpeed: 2200,
+    cssEase: "ease-in-out",
+    responsive: [
+      {
+        breakpoint: 1280, // XL
+        settings: { slidesToShow: 3 },
+      },
+      {
+        breakpoint: 1024, // LG
+        settings: { slidesToShow: 3 },
+      },
+      {
+        breakpoint: 768, // MD
+        settings: { slidesToShow: 2 },
+      },
+      {
+        breakpoint: 480, // SM
+        settings: { slidesToShow: 1 },
+      },
+    ],
   };
 
   if (loading)
     return (
       <div className="text-center p-8 text-gray-300">
         <Loader className="animate-spin inline-block mr-2 text-blue-400" />
-        Loading {title}.........
+        Loading {title}...
       </div>
     );
-  if (error) return <p>Error loading recipes</p>;
+
+  if (error)
+    return (
+      <p className="text-red-500 text-center py-4">Error loading recipes</p>
+    );
 
   return (
-    <>
-      <section className="mt-1 mx-auto">
-        <h2
-          className="text-3xl font-extrabold text-gray-100 mb-6 tracking-tight border-1-4
-        border-yellow-400 pl-4 flex items-center"
-        >
-          <Clock className="w-6 h-6 mr-3 text-blue-500" /> {title}
-        </h2>
+    <section className="mx-auto">
+      {/* Title */}
+      <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-100 mb-5 tracking-tight flex items-center gap-3">
+        <Clock className="w-6 h-6 text-blue-500" />
+        {title}
+      </h2>
 
-        <div style={{ width: "90%", margin: "auto", padding: "10px" }}>
-          <Slider {...settings}>
-            {meals.map((meal) => (
-              <div key={meal.idMeal} className="px-10 flex justify-center">
-                <RecipeCard meal={meal} />
-              </div>
-            ))}
-          </Slider>
-        </div>
-      </section>
-    </>
+      {/* Slider Container */}
+      <div className="px-2 sm:px-4 lg:px-6">
+        <Slider {...settings}>
+          {meals.map((meal) => (
+            <div key={meal.idMeal} className="px-2 sm:px-3 lg:px-4">
+              <RecipeCard meal={meal} />
+            </div>
+          ))}
+        </Slider>
+      </div>
+    </section>
   );
 };
 

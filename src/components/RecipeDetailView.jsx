@@ -12,121 +12,114 @@ const RecipeDetailView = () => {
     return (
       <div className="text-center p-8 text-gray-300">
         <Loader className="animate-spin inline-block mr-2 text-blue-400" />
-        Preparing your recipe card ...
+        Preparing your recipe card...
       </div>
     );
 
+  if (!meal)
+    return <p className="text-center text-gray-300">Recipe not found.</p>;
+
+  // Extract Ingredients & Measures
   const ingredients = [];
   for (let i = 1; i <= 20; i++) {
-    const ingredient = meal[`strIngredient${i}`];
+    const ing = meal[`strIngredient${i}`];
     const measure = meal[`strMeasure${i}`];
-
-    if (ingredient && ingredient.trim()) {
+    if (ing && ing.trim()) {
       ingredients.push({
-        ingredient: ingredient.trim(),
-        measure: measure ? measure.trim() : "",
+        ingredient: ing.trim(),
+        measure: measure?.trim() || "",
       });
     }
   }
 
+  // Format instructions
   const instructions = meal.strInstructions
-    ? meal.strInstructions
-        .split(".")
-        .map((step) => step.trim())
-        .filter((step) => step.length > 0)
-    : [];
+    ?.split(".")
+    ?.map((step) => step.trim())
+    ?.filter((step) => step.length > 0);
 
   return (
-    <>
-      <main className="max-w-8x1_mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link
-          to={"/"}
-          className="text-yellow-400 hover:text-yellow-300 flex items-center mb-6
-            font-medium transition text-lg group"
-        >
-          <ChevronLeft className="w-6 h-6 mr-1 transition" />
-          Back to Dashboard
-        </Link>
+    <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      {/* Back Button */}
+      <Link
+        to="/"
+        className="text-yellow-400 hover:text-yellow-300 flex items-center mb-8 text-lg font-medium"
+      >
+        <ChevronLeft className="w-6 h-6 mr-1" />
+        Back to Home
+      </Link>
 
-        <div
-          className="Obg-gray-900 p-6 md:p-12 rounded-3xl shadow-2xl
-          shadow-black/70 border Oborder-gray-800"
-        >
-          <div className="lg: flex lg: space-x-12">
-            <div className="lg:w-1/2 mb-8 lg:mb-0">
-              <h1 className="text-4xl font-black text-gray-100 mb-6 leading-tight">
-                {meal?.strMeal}
-              </h1>
-              <img
-                src={meal.strMealThumb}
-                alt=""
-                className="w-[400px] h-[400px] rounded-xl
-                shadow-2x1 shadow-black/50 object-cover border-4 border-gray-800 ring-2
-                Bring-blue-500/50 mx-5"
-              />
-            </div>
-            <div
-              className="lg:w-1/2 bg-gray-800 rounded-xl shadow-inner shadow-black/30 border
-              Oborder-gray-700 pb-3"
-            >
-              <h2 className="text-3xl font-bold text-yellow-400 mb-6 flex items-center border-b border-gray-700 p-3">
-                <Utensils className="w-7 h-7 mr-3 text-blue-500" /> Key
-                Ingredients
-              </h2>
+      {/* Main Card */}
+      <div className="bg-gray-900 p-6 md:p-10 rounded-3xl shadow-2xl border border-gray-800">
+        {/* Flex Layout */}
+        <div className="lg:flex lg:space-x-10">
+          {/* IMAGE + TITLE */}
+          <div className="lg:w-1/2 mb-8 lg:mb-0">
+            <h1 className="text-3xl sm:text-4xl font-black text-gray-100 mb-6 leading-tight">
+              {meal.strMeal}
+            </h1>
 
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 list-none p-0">
-                {ingredients.map((item, index) => (
-                  <li
-                    key={index}
-                    className="flex items-start text-gray-300 text-base ml-2"
-                  >
-                    <span className="text-blue-400 font-extrabold text-lg mr-2 shrink-0">
-                      {">"}
-                    </span>
-                    <span className="font-semibold text-white mr-1">
-                      {item.measure}
-                    </span>{" "}
-                    {item.ingredient}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-8 pt-4 border-t border-gray-700">
-                <div className="text-lg text-gray-400 space-x-3 flex flex-wrap gap-y-2">
-                  <span className="bg-blue-600 text-white px-4 py-1.5 ml-3 rounded-full font-semibold text-sm shadow-md">
-                    {meal.strCategory}
-                  </span>
-                  <span className="bg-green-600 text-white px-4 py-1.5 ml-3 rounded-full font-semibold text-sm shadow-md">
-                    {meal.strArea}
-                  </span>
-                </div>
-              </div>
-            </div>
+            <img
+              src={meal.strMealThumb}
+              alt={meal.strMeal}
+              className="w-full max-w-md rounded-2xl shadow-xl border border-gray-800 mx-auto object-cover"
+            />
           </div>
 
-          <div className="mt-4 pt-8 border-t border-gray-700">
-            <h2 className="text-3xl font-bold text-gray-100 mb-8 flex items-center">
-              <BookOpen className="w-7 h-7 mr-3 text-blue-500" />
-              Detailed Preparation Steps
+          {/* INGREDIENTS */}
+          <div className="lg:w-1/2 bg-gray-800 rounded-2xl shadow-inner border border-gray-700 p-6">
+            <h2 className="text-2xl sm:text-3xl font-bold text-yellow-400 mb-6 flex items-center border-b border-gray-700 pb-3">
+              <Utensils className="w-7 h-7 mr-3 text-blue-500" />
+              Key Ingredients
             </h2>
-            <ol className="space-y-6 list-none text-gray-300 ">
-              {instructions.map((step, index) => (
-                <li
-                  key={index}
-                  className="text-lg leading-relaxed bg-gray-800 p-5 rounded-xl border-1-6
-            border-blue-500 shadow-lg shadow-black-30 transition duration-300 hover:bg-gray-700/50"
-                >
-                  <span className="font-extrabold text-yellow-400 mr-3 text-xl">
-                    {index + 1}
+
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
+              {ingredients.map((item, index) => (
+                <li key={index} className="flex text-gray-300 text-base">
+                  <span className="text-blue-400 font-bold mr-2">{">"}</span>
+                  <span className="font-semibold text-white mr-1">
+                    {item.measure}
                   </span>
-                  {step.trim()}
+                  {item.ingredient}
                 </li>
               ))}
-            </ol>
+            </ul>
+
+            {/* TAGS */}
+            <div className="mt-8 pt-4 border-t border-gray-700 flex flex-wrap gap-3">
+              <span className="bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-md">
+                {meal.strCategory}
+              </span>
+              <span className="bg-green-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-md">
+                {meal.strArea}
+              </span>
+            </div>
           </div>
         </div>
-      </main>
-    </>
+
+        {/* INSTRUCTIONS */}
+        <div className="mt-10 pt-8 border-t border-gray-700">
+          <h2 className="text-3xl font-bold text-gray-100 mb-8 flex items-center">
+            <BookOpen className="w-7 h-7 mr-3 text-blue-500" />
+            Detailed Preparation Steps
+          </h2>
+
+          <ol className="space-y-6">
+            {instructions?.map((step, index) => (
+              <li
+                key={index}
+                className="text-base sm:text-lg leading-relaxed bg-gray-800 p-5 rounded-xl border border-blue-500/20 hover:bg-gray-700/50 transition shadow-lg"
+              >
+                <span className="font-extrabold text-yellow-400 mr-3 text-xl">
+                  {index + 1}.
+                </span>
+                {step}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </main>
   );
 };
 

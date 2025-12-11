@@ -5,6 +5,8 @@ import RecipeDetailView from "./components/RecipeDetailView";
 import Cuisine from "./components/Cuisine";
 import HomeView from "./components/HomeView";
 import SearchView from "./components/SearchView";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const API_URL = "https://www.themealdb.com/api/json/v1/1/";
 
@@ -58,22 +60,26 @@ const App = () => {
   return (
     <>
       <Router>
-        <div className="min-h-screen bg-gray-950 font-sans text-green-100">
+        <div className="min-h-screen bg-gray-950 text-green-100">
           <Navbar handleSearch={handleSearch} />
-          <Cuisine filterByArea={filterByArea} />
-          <Routes>
-            <Route
-              path="/"
-              element={<HomeView filterByCategory={filterByCategory} />}
-            ></Route>
-            <Route path="/recipe/:id" element={<RecipeDetailView />}></Route>
-            <Route
-              path="/search/:query"
-              element={
-                <SearchView meals={searchResult} loading={searchLoading} />
-              }
-            ></Route>
-          </Routes>
+
+          <div className="max-w-6xl mx-auto px-4 py-4">
+            <Cuisine filterByArea={filterByArea} />
+
+            <Routes>
+              <Route
+                path="/"
+                element={<HomeView filterByCategory={filterByCategory} />}
+              />
+              <Route path="/recipe/:id" element={<RecipeDetailView />} />
+              <Route
+                path="/search/:query"
+                element={
+                  <SearchView meals={searchResult} loading={searchLoading} />
+                }
+              />
+            </Routes>
+          </div>
         </div>
       </Router>
     </>

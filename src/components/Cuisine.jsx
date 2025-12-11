@@ -12,23 +12,32 @@ const Cuisine = ({ filterByArea }) => {
     "Italian",
     "Russian",
   ];
+
   return (
-    <>
-      <div className="bg-gray-900/80 border-b border-gray-800 shadow-inner shadow-black/20">
-        <div className="max-w-8xl mx-auto px-4 lg:px-8 overflow-x-auto scrollbar-hide">
-          <div className="flex space-x-4 py-3 items-center">
-            <div className="flex items-center text-lg font-bold text-yellow-400 pr-3 whitespace-nowrap">
-              <Globe className="w-5 h-5 mr-2" /> Global Cuisines:
-            </div>
+    <div className="bg-gray-900/70 backdrop-blur-md border-b border-gray-800 shadow-inner">
+      <div className="max-w-6xl mx-auto px-4 py-3 overflow-x-auto scrollbar-hide">
+        <div className="flex items-center gap-3">
+          {/* Label */}
+          <div className="flex items-center text-base font-semibold text-yellow-400 shrink-0 pr-2">
+            <Globe className="w-5 h-5 mr-1" />
+            Global Cuisines
+          </div>
+
+          {/* Scrollable chips */}
+          <div className="flex gap-3 overflow-x-auto scrollbar-hide">
             {featuredAreas.map((area) => (
               <Link
+                key={area}
                 to={`search/${area}`}
                 onClick={() => filterByArea(area)}
-                key={area}
-                className="cursor-pointer text-gray-200 text-sm whitespace-nowrap
-                font-medium hover:text-white transition duration-200 py-1.5 px-4
-                rounded-full bg-gray-800 border-gray-700 hover:bg-blue-600 hover:shadow-lg
-                hover:shadow-blue-800/50 transform hover:scale-[1.05]"
+                className="
+                  px-5 py-1.5 text-sm bg-gray-800 text-gray-200
+                  border border-gray-700 rounded-full
+                  hover:bg-blue-600 hover:border-blue-600 hover:text-white
+                  transition-all duration-200 ease-out
+                  shadow-sm hover:shadow-blue-900/40
+                  whitespace-nowrap select-none
+                "
               >
                 {area}
               </Link>
@@ -36,7 +45,7 @@ const Cuisine = ({ filterByArea }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
