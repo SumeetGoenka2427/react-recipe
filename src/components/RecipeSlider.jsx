@@ -17,21 +17,25 @@ const RecipeSlider = ({ title, fetchUrl }) => {
     autoplay: true,
     autoplaySpeed: 2200,
     cssEase: "ease-in-out",
+
+    // 🔥 VERY IMPORTANT - enables proper breakpoints
+    mobileFirst: true,
+
     responsive: [
       {
-        breakpoint: 1280, // XL
+        breakpoint: 1280, // xl
         settings: { slidesToShow: 3 },
       },
       {
-        breakpoint: 1024, // LG
+        breakpoint: 1024, // lg
         settings: { slidesToShow: 3 },
       },
       {
-        breakpoint: 768, // MD
+        breakpoint: 768, // md
         settings: { slidesToShow: 2 },
       },
       {
-        breakpoint: 480, // SM
+        breakpoint: 640, // sm (ALL phones)
         settings: { slidesToShow: 1 },
       },
     ],
@@ -59,7 +63,7 @@ const RecipeSlider = ({ title, fetchUrl }) => {
       </h2>
 
       {/* Slider Container */}
-      <div className="px-2 sm:px-4 lg:px-6">
+      <div className="w-full overflow-hidden px-1">
         <Slider {...settings}>
           {meals.map((meal) => (
             <div key={meal.idMeal} className="px-2 sm:px-3 lg:px-4">
