@@ -13,16 +13,16 @@ const TrendingSlider = ({ title, fetchUrl }) => {
     arrows: false,
     infinite: true,
     speed: 600,
-    slidesToShow: 6,
+    slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
     cssEase: "linear",
 
     responsive: [
-      { breakpoint: 1280, settings: { slidesToShow: 5 } }, // XL
-      { breakpoint: 1024, settings: { slidesToShow: 4 } }, // LG
-      { breakpoint: 768, settings: { slidesToShow: 3 } }, // MD
+      { breakpoint: 1280, settings: { slidesToShow: 2 } }, // XL
+      { breakpoint: 1024, settings: { slidesToShow: 2 } }, // LG
+      { breakpoint: 768, settings: { slidesToShow: 2 } }, // MD
       { breakpoint: 640, settings: { slidesToShow: 2 } }, // SM
       { breakpoint: 480, settings: { slidesToShow: 2 } }, // XS
     ],

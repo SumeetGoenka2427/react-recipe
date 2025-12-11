@@ -12,7 +12,7 @@ const RecipeSlider = ({ title, fetchUrl }) => {
     dots: false,
     infinite: true,
     speed: 600,
-    slidesToShow: 4,
+    slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2200,
@@ -24,15 +24,15 @@ const RecipeSlider = ({ title, fetchUrl }) => {
     responsive: [
       {
         breakpoint: 1280, // xl
-        settings: { slidesToShow: 3 },
+        settings: { slidesToShow: 1 },
       },
       {
         breakpoint: 1024, // lg
-        settings: { slidesToShow: 3 },
+        settings: { slidesToShow: 1 },
       },
       {
         breakpoint: 768, // md
-        settings: { slidesToShow: 2 },
+        settings: { slidesToShow: 1 },
       },
       {
         breakpoint: 640, // sm (ALL phones)
