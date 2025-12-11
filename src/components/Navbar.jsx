@@ -19,13 +19,14 @@ const Navbar = ({ handleSearch }) => {
     <nav className="sticky top-0 z-20 bg-gray-950/80 backdrop-blur-lg border-b border-gray-800 shadow-lg">
       <div className="max-w-6xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
+
           {/* logo */}
           <Link
             to="/"
             className="flex items-center gap-2 text-xl font-extrabold tracking-wide text-white hover:text-blue-400 transition"
           >
             <Zap className="w-6 h-6 text-yellow-400" />
-            <span className="text-blue-400">Pro</span>Chef
+            <span className="text-blue-400">Gem</span>Chef
           </Link>
 
           {/* Desktop Search */}
